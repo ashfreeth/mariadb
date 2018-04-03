@@ -64,13 +64,13 @@ RUN set -ex; \
 	rm -r "$GNUPGHOME"; \
 	apt-key list
 
-# add Percona's repo for xtrabackup (which is useful for Galera)
-RUN echo "deb https://repo.percona.com/apt jessie main" > /etc/apt/sources.list.d/percona.list \
-	&& { \
-		echo 'Package: *'; \
-		echo 'Pin: release o=Percona Development Team'; \
-		echo 'Pin-Priority: 998'; \
-	} > /etc/apt/preferences.d/percona
+# COMMENTED OUT add Percona's repo for xtrabackup (which is useful for Galera)
+#RUN echo "deb https://repo.percona.com/apt jessie main" > /etc/apt/sources.list.d/percona.list \
+#	&& { \
+#		echo 'Package: *'; \
+#		echo 'Pin: release o=Percona Development Team'; \
+#		echo 'Pin-Priority: 998'; \
+#	} > /etc/apt/preferences.d/percona
 
 ENV MARIADB_MAJOR 10.2
 ENV MARIADB_VERSION 10.2.14+maria~jessie
@@ -93,8 +93,8 @@ RUN { \
 	&& apt-get update \
 	&& apt-get install -y \
 		"mariadb-server=$MARIADB_VERSION" \
-# percona-xtrabackup is installed at the same time so that `mysql-common` is only installed once from just mariadb repos
-		percona-xtrabackup-24 \
+# COMMENTED OUT percona-xtrabackup is installed at the same time so that `mysql-common` is only installed once from just mariadb repos
+#		percona-xtrabackup-24 \
 		socat \
 	&& rm -rf /var/lib/apt/lists/* \
 # comment out any "user" entires in the MySQL config ("docker-entrypoint.sh" or "--user" will handle user switching)
