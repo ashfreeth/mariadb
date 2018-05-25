@@ -91,14 +91,14 @@ RUN cd $SOURCE_DIR && wget https://github.com/MariaDB/server/archive/mariadb-10.
 	&& cd server-mariadb-10.2.14 \
 
 ## Make changes to file to fix openssl related issue
-RUN cd $SOURCE_DIR/server-mariadb-10.2.14 \
+ 	&& cd $SOURCE_DIR/server-mariadb-10.2.14 \
 	&& sed -i '231d' libmariadb/include/mariadb_com.h \
 	&& sed -i '231 a\#define SERVER_STATUS_IN_TRANS_READONLY       8192' libmariadb/include/mariadb_com.h \
 	&& sed -i '231 a\#define SERVER_SESSION_STATE_CHANGED      16384' libmariadb/include/mariadb_com.h \
 	&& sed -i '231 a\#define SERVER_STATUS_ANSI_QUOTES        32768' libmariadb/include/mariadb_com.h \
 
  ##Build, configure, install
-RUN BUILD/autorun.sh \
+ 	&& BUILD/autorun.sh \
   && ./configure --WITH_SAFEMALLOC=ON --with-debug \
   && make \
   && make install \
