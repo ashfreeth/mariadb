@@ -90,12 +90,17 @@ RUN cd $SOURCE_DIR && wget https://github.com/MariaDB/server/archive/mariadb-10.
 	&& tar xzf mariadb-10.2.14.tar.gz \
 	&& cd server-mariadb-10.2.14 \
 
+##Get MariaDB Connector C code from git
+	&& cd $SOURCE_DIR && git clone git://github.com/MariaDB/mariadb-connector-c.git \
+	&& cd mariadb-connector-c && git checkout v3.0.2 \
+	&& cp -r $SOURCE_DIR/mariadb-connector-c/* $SOURCE_DIR/server-mariadb-10.2.14/libmariadb/ \
+
 ## Make changes to file to fix openssl related issue
-# 	&& cd $SOURCE_DIR/server-mariadb-10.2.14 \
-#	&& sed -i '231d' libmariadb/include/mariadb_com.h \
-#	&& sed -i '231 a\#define SERVER_STATUS_IN_TRANS_READONLY       8192' libmariadb/include/mariadb_com.h \
-#	&& sed -i '231 a\#define SERVER_SESSION_STATE_CHANGED      16384' libmariadb/include/mariadb_com.h \
-#	&& sed -i '231 a\#define SERVER_STATUS_ANSI_QUOTES        32768' libmariadb/include/mariadb_com.h \
+ 	&& cd $SOURCE_DIR/server-mariadb-10.2.14 \
+	&& sed -i '231d' libmariadb/include/mariadb_com.h \
+	&& sed -i '231 a\#define SERVER_STATUS_IN_TRANS_READONLY       8192' libmariadb/include/mariadb_com.h \
+	&& sed -i '231 a\#define SERVER_SESSION_STATE_CHANGED      16384' libmariadb/include/mariadb_com.h \
+	&& sed -i '231 a\#define SERVER_STATUS_ANSI_QUOTES        32768' libmariadb/include/mariadb_com.h \
 
  ##Build, configure, install
  	&& BUILD/autorun.sh \
