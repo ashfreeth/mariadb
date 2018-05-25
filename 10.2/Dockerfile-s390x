@@ -107,13 +107,6 @@ RUN cd $SOURCE_DIR && wget https://github.com/MariaDB/server/archive/mariadb-10.
   && ./configure --WITH_SAFEMALLOC=ON --with-debug \
   && make \
   && make install \
-  && groupadd -r mysql && useradd -r -g mysql mysql \
-  && cd /usr/local/mysql \
-  && chmod -R o+rwx . \
-  && scripts/mysql_install_db \
-  && sleep 20s \
-  && chmod -R o+rwx . \
-  && cp support-files/mysql.server /etc/init.d/mysql \
 
 # COMMENTED OUT
 #RUN echo "deb http://ftp.osuosl.org/pub/mariadb/repo/$MARIADB_MAJOR/debian jessie main" > /etc/apt/sources.list.d/mariadb.list \
