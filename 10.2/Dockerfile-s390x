@@ -82,6 +82,9 @@ ENV MARIADB_MAJOR 10.2
 ENV MARIADB_VERSION 10.2.14+maria~jessie
 ENV SOURCE_DIR=/tmp/source
 
+# Make source directory
+RUN mkdir $SOURCE_DIR
+
 # Install MariaDB from source
 RUN cd $SOURCE_DIR && wget https://github.com/MariaDB/server/archive/mariadb-10.2.14.tar.gz \
 	&& tar xzf mariadb-10.2.14.tar.gz \
